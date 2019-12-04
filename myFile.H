@@ -13,8 +13,13 @@
 
 using namespace std;
 
-class myTCPserver:public TCPserver{
+class MyTCPserver:public TCPserver{
+public:
+    MyTCPserver(int port, int maxDataSizeRecv) : TCPserver(port, maxDataSizeRecv){
+        ;;
+    }
 protected:
-    string      myResponse(string input);
+    virtual string      myResponse(string input);
 };
 
+#endif /* myFile_H_ */

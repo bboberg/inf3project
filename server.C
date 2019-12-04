@@ -17,8 +17,9 @@
 #include <netinet/in.h> //contains constants and structures needed for internet domain addresses
 
 #include "SIMPLESOCKET.H"
+#include "myFile.H"
 
 int main(){
-	TCPserver srv(2022,25);
+	MyTCPserver srv(2025,25);
 	srv.run();
 }
