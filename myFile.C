@@ -3,6 +3,7 @@
 *
 */
 
+
 #include "myFile.H"
 #include "TASK3.H"
 #include <iostream>
@@ -13,7 +14,6 @@
 using namespace std;
 
 string MyTCPserver::myResponse(string input){
-	srand(time(nullptr));
 
 	std::stringstream ss;
 	int x,y;
