@@ -19,7 +19,10 @@
 #include "SIMPLESOCKET.H"
 #include "myFile.H"
 
-int main(){
-	MyTCPserver srv(2025,25);
+int main(int argc, char *argv[]){
+	unsigned short port;
+	port = (unsigned short) atoi(argv[1]);
+
+	MyTCPserver srv(port, 25);
 	srv.run();
 }
