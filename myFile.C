@@ -7,6 +7,8 @@
 #include "TASK3.H"
 #include <iostream>
 #include <sstream>
+#include <unistd.h> //contains various constants
+#include "SIMPLESOCKET.H"
 
 using namespace std;
 
@@ -44,9 +46,3 @@ string MyTCPserver::myResponse(string input){
 
 	return string("NOT PROCESSABLE COMMAND");
 }
-
-/*namespace myFile{
-
-void myTask(){
-
-}*/

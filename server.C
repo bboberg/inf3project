@@ -4,6 +4,8 @@
  *  Created on: 11.09.2019
  *      Author: aml
  */
+
+#include <iostream> 
 #include <cstdio> // standard input and output library
 #include <cstdlib> // this includes functions regarding memory allocation
 #include <cstring> // contains string functions
@@ -19,10 +21,18 @@
 #include "SIMPLESOCKET.H"
 #include "myFile.H"
 
+using namespace std;
+
 int main(int argc, char *argv[]){
 	unsigned short port;
-	port = (unsigned short) atoi(argv[1]);
+	try{
+		port = (unsigned short) atoi(argv[1]);
+	}catch(...){
+		cout << "Missing Parameter: PORT";
+		exit(0);
+	}
 
+	srand(time(nullptr));
 	MyTCPserver srv(port, 25);
 	srv.run();
 }

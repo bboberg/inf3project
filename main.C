@@ -17,13 +17,13 @@
 
 #include "SHA256.H"
 #include "TASK3.H"
+#include "myFile.H"
 
 using namespace std;
 
 
 int main(){
     srand(time(nullptr));
-    TASK3::demoTask3();
     return 0;
 }
 
