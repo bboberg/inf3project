@@ -29,18 +29,14 @@ string MyTCPserver::myResponse(string input){
 		}
 
 		result = w_-> shoot(x,y);
-		cout << endl << endl;
-		w_->printBoard();
-
-		/*result = (TASK3::ShootResult) (rand() % 6);*/
 		ss << "RES[" << result << "]";
+
 		return ss.str();
 	};
 
 	if(input.compare(0,7,"NEWGAME") == 0 ){
 		delete w_;
 		w_ = new TASK3::World();
-		w_->printBoard();
 		return string("OK");
 	};
 

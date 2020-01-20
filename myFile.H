@@ -20,7 +20,7 @@ public:
     MyTCPserver(int port, int maxDataSizeRecv) : TCPserver(port, maxDataSizeRecv){
         srand(time(nullptr));
         w_ = new TASK3::World();
-        w_-> printBoard();
+        //w_-> printBoard();
     }
 protected:
     virtual string      myResponse(string input);
