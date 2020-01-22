@@ -20,6 +20,9 @@ using namespace std;
 
 int ShootALL(TCPclient *ptrC);
 
+int Shootrand(TCPclient *ptrC);
+
+
 int main() {
 	srand(time(NULL));
 	TCPclient c;
@@ -30,15 +33,27 @@ int main() {
 	//connect to host
 	c.conn(host , 2022);
 
-	cout << "Implementierung der simplen Reihe für Reihe Strategie:" << endl;
+	cout << endl << "Reihe für Reihe Strategie (100 Durchläufe); Anzahl der Schüsse pro Durchlauf:" << endl;
 
-	shtNmb = ShootALL(&c);
-	cout << shtNmb << endl;
+	for(int i=0; i<100; i++){
+		shtNmb = ShootALL(&c);
+		cout << shtNmb << endl;
+	}
+	cout << endl;
 
+	cout << endl << "Zufallsstrategie (100 Durchläufe); Anzahl der Schüsse pro Durchlauf:" << endl;
+
+	for(int i=0; i<100; i++){
+		shtNmb = Shootrand(&c);
+		cout << shtNmb << endl;
+	}
+	cout << endl;
+	
 }
 
 int ShootALL(TCPclient *ptrC){
 
+	srand(time(NULL));
 	stringstream *sstm = NULL;
 	string msg;
 	int r, count=0;
@@ -57,17 +72,26 @@ int ShootALL(TCPclient *ptrC){
 			*sstm << "COORD["<<x<<","<<y<<"]";
 			ptrC->sendData(sstm->str());
 			msg = ptrC -> receive(32);
+			sscanf(msg.c_str(), "RES[%d]", &r);
 
-			if(0 == scanf(msg.c_str(), "RES[%d]", &r)){
+			if(r == 0){
 				count++;
+			}
+
+			else if(r == 1){
+				count++;
+			}
+
+			else if(r == 2){
+				count++;
+			}
+
+			else if(r == 4){
+				break;
 			}
 
 			else{
 				cout << "Unknown: " << msg << endl;
-			}
-
-			if(r == TASK3::GAME_OVER){
-				break;
 			};
 		}
 		if(r == TASK3::GAME_OVER){
@@ -76,3 +100,44 @@ int ShootALL(TCPclient *ptrC){
 	}
 	return count;
 }
+
+
+int Shootrand(TCPclient *ptrC){
+
+	srand(time(NULL));
+	stringstream *sstm = NULL;
+	string msg;
+	int r, count=0;
+
+	ptrC-> sendData(string("NEWGAME")); //start new Game
+	msg = ptrC->receive(32);			//response
+
+	while(msg.compare(0,5, "RES[4") != 0){
+		if(sstm!=NULL){
+				delete sstm;
+			}
+
+		int x = (rand() % 10)+1;
+		int y = (rand() % 10)+1;
+
+		sstm = new stringstream();
+		*sstm << "COORD["<<x<<","<<y<<"]";
+		ptrC->sendData(sstm->str());
+		msg = ptrC -> receive(32);
+		sscanf(msg.c_str(), "RES[%d]", &r);
+
+		if(r <= 2){
+			count++;
+		}
+
+		else if(r == 4){
+			break;
+		}
+
+		else{
+			cout << "Unknown: " << msg << endl;
+		};
+	}
+	return count;
+}
+
